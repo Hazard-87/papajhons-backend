@@ -1,0 +1,20 @@
+name: Publish Docker
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -uses: actions/checkout@master
+      -name: Publish to registry
+        run: docker build . --file Dockerfile --tag trader-book-server:$(date +%s)
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          registry: docker.pkg.github.com
+          name: docker.pkg.github.com/Hazard-87/trader-book-server/trader-book-server
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "develop"
