@@ -11,13 +11,14 @@ import { CategoryEntity } from './category/entities/category.entity'
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'ep-hidden-violet-016515.eu-central-1.aws.neon.tech',
       port: 5432,
-      username: 'postgres',
-      password: ' ',
-      database: 'papajhonsDB',
+      username: 'evgenkorobkov',
+      password: 'EtF1y3cDmZWM',
+      database: 'neondb',
       entities: [PizzaEntity, CategoryEntity],
-      synchronize: false
+      ssl: true,
+      synchronize: true
     }),
     PizzaModule,
     CategoryModule
