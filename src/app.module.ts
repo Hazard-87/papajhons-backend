@@ -17,7 +17,7 @@ import { CategoryEntity } from './category/entities/category.entity'
       password: ' ',
       database: 'papajhonsDB',
       entities: [PizzaEntity, CategoryEntity],
-      synchronize: true
+      synchronize: false
     }),
     PizzaModule,
     CategoryModule
