@@ -4,6 +4,7 @@ import { IsArray, IsNumber, IsOptional } from 'class-validator'
 export class CreatePizzaDto {
   name: string
   description: string
+  image: string
   createdAt: Date
   productID: number
   categoryID: number

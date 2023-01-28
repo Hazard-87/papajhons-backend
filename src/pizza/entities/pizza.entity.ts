@@ -12,6 +12,9 @@ export class PizzaEntity {
   description: string
 
   @Column()
+  image: string
+
+  @Column()
   createdAt: Date
 
   @Column()
