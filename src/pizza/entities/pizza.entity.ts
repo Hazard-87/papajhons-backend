@@ -20,11 +20,21 @@ export class PizzaEntity {
   @Column()
   categoryID: number
 
-  @Column()
-  types: number
+  @Column({
+    type: 'integer',
+    array: true,
+    default: [],
+    nullable: false
+  })
+  typeIDs: number[]
 
-  @Column()
-  sizes: number
+  @Column({
+    type: 'integer',
+    array: true,
+    default: [],
+    nullable: false
+  })
+  sizeIDs: number[]
 
   @Column()
   price: number

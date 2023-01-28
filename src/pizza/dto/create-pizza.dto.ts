@@ -7,8 +7,8 @@ export class CreatePizzaDto {
   createdAt: Date
   productID: number
   categoryID: number
-  types: number
-  sizes: number
+  typeIDs: number[]
+  sizeIDs: number[]
   price: number
 }
 
