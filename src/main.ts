@@ -9,6 +9,4 @@ async function bootstrap() {
   await app.listen(8080)
 }
 
-bootstrap().then((r) => {
-  console.log(r)
-})
+bootstrap()

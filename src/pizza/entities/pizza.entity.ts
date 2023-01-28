@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
-@Entity('pizzas')
+@Entity('pizza')
 export class PizzaEntity {
   @PrimaryGeneratedColumn()
   id: number
@@ -12,16 +12,19 @@ export class PizzaEntity {
   description: string
 
   @Column()
-  isNew: boolean
+  createdAt: Date
+
+  @Column()
+  productID: number
 
   @Column()
   categoryID: number
 
   @Column()
-  typeID: number
+  types: number
 
   @Column()
-  sizeID: number
+  sizes: number
 
   @Column()
   price: number
