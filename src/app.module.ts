@@ -6,6 +6,12 @@ import { PizzaModule } from './pizza/pizza.module'
 import { PizzaEntity } from './pizza/entities/pizza.entity'
 import { CategoryModule } from './category/category.module'
 import { CategoryEntity } from './category/entities/category.entity'
+import { ProductModule } from './product/product.module'
+import { PizzaTypeModule } from './pizza-type/pizza-type.module'
+import { PizzaSizeModule } from './pizza-size/pizza-size.module'
+import { PizzaSizeEntity } from './pizza-size/entities/pizza-size.entity'
+import { PizzaTypeEntity } from './pizza-type/entities/pizza-type.entity'
+import { ProductEntity } from './product/entities/product.entity'
 
 @Module({
   imports: [
@@ -16,12 +22,15 @@ import { CategoryEntity } from './category/entities/category.entity'
       username: 'Hazard-87',
       password: 'bE4KCHFePSr3',
       database: 'neondb',
-      entities: [PizzaEntity, CategoryEntity],
+      entities: [PizzaEntity, CategoryEntity, PizzaSizeEntity, PizzaTypeEntity, ProductEntity],
       ssl: true,
       synchronize: true
     }),
     PizzaModule,
-    CategoryModule
+    CategoryModule,
+    ProductModule,
+    PizzaTypeModule,
+    PizzaSizeModule
   ],
   controllers: [AppController],
   providers: [AppService]

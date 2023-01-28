@@ -26,7 +26,7 @@ export class PizzaEntity {
     default: [],
     nullable: false
   })
-  typeIDs: number[]
+  pizzaTypeIDs: number[]
 
   @Column({
     type: 'integer',
@@ -34,7 +34,7 @@ export class PizzaEntity {
     default: [],
     nullable: false
   })
-  sizeIDs: number[]
+  pizzaSizeIDs: number[]
 
   @Column()
   price: number
