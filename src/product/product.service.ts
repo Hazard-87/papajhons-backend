@@ -21,9 +21,14 @@ export class ProductService {
   }
 
   async findAll(query) {
+    const limit = 10
     const qb = this.repository.createQueryBuilder('products')
     qb.orderBy('id', 'ASC')
-    qb.limit(+query.limit || 2)
+    if (!query.limit) {
+      qb.limit(limit)
+    } else if (query.limit !== 'all') {
+      qb.limit(+query.limit || limit)
+    }
     qb.offset(+query.offset || 0)
     qb.orderBy('id', query.order || 'ASC')
     delete query.limit
