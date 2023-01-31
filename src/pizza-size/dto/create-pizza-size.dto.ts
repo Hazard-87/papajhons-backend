@@ -1,6 +1,8 @@
 export class CreatePizzaSizeDto {
+  pizzaID: number
+  type: string
   size: number
-  unit: string
+  isBorder: boolean
 }
 
 export class QueryArg {

@@ -6,8 +6,14 @@ export class PizzaSizeEntity {
   id: number
 
   @Column()
+  pizzaID: number
+
+  @Column()
+  type: string
+
+  @Column()
   size: number
 
   @Column()
-  unit: string
+  isBorder: boolean
 }

@@ -1,5 +1,6 @@
 export class CreateProductDto {
   name: string
+  image: string
 }
 
 export class QueryArg {

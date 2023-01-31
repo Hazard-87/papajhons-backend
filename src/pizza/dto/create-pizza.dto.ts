@@ -4,12 +4,11 @@ import { IsArray, IsNumber, IsOptional } from 'class-validator'
 export class CreatePizzaDto {
   name: string
   description: string
-  image: string
   createdAt: Date
   productID: number
-  categoryID: number
-  pizzaTypeIDs: number[]
-  pizzaSizeIDs: number[]
+  categoryIDs: number[]
+  imageID: number
+  unit: string
   price: number
 }
 
@@ -18,6 +17,7 @@ export class QueryArg {
   limit?: string
   offset?: string
 }
+
 export class BasicFiltersDTO {
   @IsArray()
   @IsOptional()

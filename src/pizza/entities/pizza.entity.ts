@@ -12,7 +12,7 @@ export class PizzaEntity {
   description: string
 
   @Column()
-  image: string
+  imageID: number
 
   @Column()
   createdAt: Date
@@ -20,24 +20,16 @@ export class PizzaEntity {
   @Column()
   productID: number
 
+  @Column({
+    type: 'integer',
+    array: true,
+    default: [],
+    nullable: false
+  })
+  categoryIDs: number[]
+
   @Column()
-  categoryID: number
-
-  @Column({
-    type: 'integer',
-    array: true,
-    default: [],
-    nullable: false
-  })
-  pizzaTypeIDs: number[]
-
-  @Column({
-    type: 'integer',
-    array: true,
-    default: [],
-    nullable: false
-  })
-  pizzaSizeIDs: number[]
+  unit: string
 
   @Column()
   price: number

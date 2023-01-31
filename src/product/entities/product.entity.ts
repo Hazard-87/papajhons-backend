@@ -7,4 +7,7 @@ export class ProductEntity {
 
   @Column()
   name: string
+
+  @Column()
+  image: string
 }
