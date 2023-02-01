@@ -10,6 +10,8 @@ import { ProductModule } from './product/product.module'
 import { PizzaSizeModule } from './pizza-size/pizza-size.module'
 import { PizzaSizeEntity } from './pizza-size/entities/pizza-size.entity'
 import { ProductEntity } from './product/entities/product.entity'
+import { ImageModule } from './image/image.module'
+import { ImageEntity } from './image/entities/image.entity'
 
 @Module({
   imports: [
@@ -20,14 +22,15 @@ import { ProductEntity } from './product/entities/product.entity'
       username: 'Hazard-87',
       password: 'bE4KCHFePSr3',
       database: 'neondb',
-      entities: [PizzaEntity, CategoryEntity, PizzaSizeEntity, ProductEntity],
+      entities: [PizzaEntity, CategoryEntity, PizzaSizeEntity, ProductEntity, ImageEntity],
       ssl: true,
       synchronize: true
     }),
     PizzaModule,
     CategoryModule,
     ProductModule,
-    PizzaSizeModule
+    PizzaSizeModule,
+    ImageModule
   ],
   controllers: [AppController],
   providers: [AppService]

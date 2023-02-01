@@ -7,7 +7,7 @@ export class CreatePizzaDto {
   createdAt: Date
   productID: number
   categoryIDs: number[]
-  imageID: number
+  imageId: number
   unit: string
   price: number
 }

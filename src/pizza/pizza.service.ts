@@ -26,6 +26,7 @@ export class PizzaService {
     const qb = this.repository
       .createQueryBuilder('pizza')
       .leftJoinAndSelect('pizza.sizes', 'pizzaSizes')
+      .leftJoinAndSelect('pizza.image', 'image')
       .orderBy('pizza.id', query.order || 'ASC')
 
     if (!query.limit) {
