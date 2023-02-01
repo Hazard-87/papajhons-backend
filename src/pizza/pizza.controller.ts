@@ -3,7 +3,7 @@ import { PizzaService } from './pizza.service'
 import { CreatePizzaDto, QueryArg } from './dto/create-pizza.dto'
 import { UpdatePizzaDto } from './dto/update-pizza.dto'
 
-@Controller('pizzas')
+@Controller('pizza')
 export class PizzaController {
   constructor(private readonly pizzaService: PizzaService) {}
 

@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { PizzaSizeEntity } from '../../pizza-size/entities/pizza-size.entity'
 
 @Entity('pizza')
 export class PizzaEntity {
@@ -33,4 +34,7 @@ export class PizzaEntity {
 
   @Column()
   price: number
+
+  @OneToMany(() => PizzaSizeEntity, (size) => size.pizza)
+  sizes: PizzaSizeEntity[]
 }

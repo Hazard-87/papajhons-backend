@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { CreatePizzaDto } from './dto/create-pizza.dto'
 import { UpdatePizzaDto } from './dto/update-pizza.dto'
 import { PizzaEntity } from './entities/pizza.entity'
-import { Brackets, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 
 @Injectable()
 export class PizzaService {
@@ -21,11 +21,20 @@ export class PizzaService {
   }
 
   async findAll(query) {
-    const qb = this.repository.createQueryBuilder('pizzas')
-    qb.orderBy('id', 'ASC')
-    qb.limit(+query.limit || 2)
-    qb.offset(+query.offset || 0)
-    qb.orderBy('id', query.order || 'ASC')
+    const limit = 10
+
+    const qb = this.repository
+      .createQueryBuilder('pizza')
+      .leftJoinAndSelect('pizza.sizes', 'pizzaSizes')
+      .orderBy('pizza.id', query.order || 'ASC')
+
+    if (!query.limit) {
+      qb.take(limit)
+    } else if (query.limit !== 'all') {
+      qb.take(+query.limit || limit)
+    }
+    qb.skip(+query.offset || 0)
+
     delete query.limit
     delete query.offset
     delete query.order
@@ -43,19 +52,7 @@ export class PizzaService {
       }
     })
 
-    qb.where(params).andWhere(
-      new Brackets((qb) => {
-        items.forEach((item, idx) => {
-          if (idx === 0) {
-            qb.where(item)
-          } else {
-            qb.orWhere(item)
-          }
-        })
-      })
-    )
-
-    const [result, total] = await qb.getManyAndCount()
+    const [result, total] = await qb.where(params).getManyAndCount()
 
     return {
       result,
