@@ -16,16 +16,13 @@ export class PizzaEntity {
   @Column()
   createdAt: Date
 
-  @Column()
-  productID: number
-
   @Column({
     type: 'integer',
     array: true,
     default: [],
     nullable: false
   })
-  categoryIDs: number[]
+  public categoryIDs: number[]
 
   @Column()
   unit: string
