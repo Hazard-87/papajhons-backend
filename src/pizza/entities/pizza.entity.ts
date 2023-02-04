@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany } from 'typeorm'
 import { PizzaSizeEntity } from '../../pizza-size/entities/pizza-size.entity'
 import { ImageEntity } from '../../image/entities/image.entity'
 
@@ -12,6 +12,9 @@ export class PizzaEntity {
 
   @Column()
   description: string
+
+  @Column()
+  productID: number
 
   @Column()
   createdAt: Date
@@ -30,9 +33,9 @@ export class PizzaEntity {
   @Column()
   price: number
 
-  @OneToMany(() => PizzaSizeEntity, (size) => size.pizza)
-  sizes: PizzaSizeEntity[]
+  @ManyToMany(() => PizzaSizeEntity, (size) => size.pizzaIds)
+  types: PizzaSizeEntity[]
 
-  @OneToOne(() => ImageEntity, (image) => image.pizza)
-  image: ImageEntity
+  @OneToMany(() => ImageEntity, (image) => image.pizza)
+  images: ImageEntity[]
 }

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { PizzaEntity } from '../../pizza/entities/pizza.entity'
 
 @Entity('image')
@@ -7,9 +7,15 @@ export class ImageEntity {
   id: number
 
   @Column()
+  typeId: number
+
+  @Column({
+    nullable: true,
+    default: null
+  })
   url: string
 
-  @OneToOne(() => PizzaEntity, (pizza) => pizza.image)
+  @ManyToOne(() => PizzaEntity, (pizza) => pizza.images)
   @JoinColumn()
   pizza: PizzaEntity
 }

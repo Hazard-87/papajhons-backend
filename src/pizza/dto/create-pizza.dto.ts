@@ -5,6 +5,7 @@ export class CreatePizzaDto {
   name: string
   description: string
   createdAt: Date
+  productID: number
   categoryIDs: number[]
   imageId: number
   unit: string

@@ -22,12 +22,12 @@ export class PizzaService {
 
   async findAll(query) {
     const limit = 10
-    const categoryIDs = [...query.categoryID]
+    const categoryIDs = query.categoryID ? [...query.categoryID] : []
 
     const qb = this.repository
       .createQueryBuilder('pizza')
-      .leftJoinAndSelect('pizza.sizes', 'pizzaSizes')
-      .leftJoinAndSelect('pizza.image', 'image')
+      .leftJoinAndSelect('pizza.types', 'pizzaSizes')
+      .leftJoinAndSelect('pizza.images', 'image')
       .where(':id <@ (pizza.categoryIDs)', { id: categoryIDs })
       .orderBy('pizza.id', query.order || 'ASC')
 

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm'
 import { PizzaEntity } from '../../pizza/entities/pizza.entity'
 
 @Entity('pizzaSize')
@@ -15,10 +15,9 @@ export class PizzaSizeEntity {
   @Column()
   isBorder: boolean
 
-  @Column()
-  pizzaId: number
-
-  @ManyToOne(() => PizzaEntity, (pizza) => pizza.sizes, { createForeignKeyConstraints: false })
-  @JoinColumn({ name: 'pizzaId' })
-  pizza: PizzaEntity
+  @ManyToMany(() => PizzaEntity, (pizza) => pizza.types, {
+    cascade: true
+  })
+  @JoinTable()
+  pizzaIds: PizzaEntity[]
 }
