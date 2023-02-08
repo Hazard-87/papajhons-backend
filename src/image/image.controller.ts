@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ImageService } from './image.service'
 import { CreateImageDto } from './dto/create-image.dto'
 import { UpdateImageDto } from './dto/update-image.dto'
+import { ApiOkResponse } from '@nestjs/swagger'
+import { ImageEntity } from './entities/image.entity'
 
 @Controller('image')
 export class ImageController {
@@ -12,6 +14,9 @@ export class ImageController {
     return this.imageService.create(createImageDto)
   }
 
+  @ApiOkResponse({
+    type: [ImageEntity]
+  })
   @Get()
   findAll() {
     return this.imageService.findAll()

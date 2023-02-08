@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common'
 import { PizzaSizeService } from './pizza-size.service'
-import { CreatePizzaSizeDto } from './dto/create-pizza-size.dto'
+import { CreatePizzaSizeDto, QueryArg } from './dto/create-pizza-size.dto'
 import { UpdatePizzaSizeDto } from './dto/update-pizza-size.dto'
-import { QueryArg } from '../pizza/dto/create-pizza.dto'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { PizzaSizeEntity } from './entities/pizza-size.entity'
 
 @Controller('pizzaSizes')
+@ApiTags('pizzaSizes')
 export class PizzaSizeController {
   constructor(private readonly pizzaSizeService: PizzaSizeService) {}
 
@@ -13,6 +15,9 @@ export class PizzaSizeController {
     return this.pizzaSizeService.create(createPizzaSizeDto)
   }
 
+  @ApiOkResponse({
+    type: [PizzaSizeEntity]
+  })
   @Get()
   findByParams(@Query('id') id?: string | string[], @Query() query?: QueryArg) {
     if (id) {
