@@ -17,7 +17,11 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config, {
     ignoreGlobalPrefix: true
   })
-  SwaggerModule.setup('/swagger', app, document)
+  SwaggerModule.setup('/swagger', app, document, {
+    customCssUrl: './docs/swagger-ui.css',
+    customJs: './docs/swagger-ui-bundle.js',
+    customfavIcon: './docs/favicon-16x16.png'
+  })
 
   await app.listen(8080)
 }
