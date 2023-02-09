@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core'
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { AppModule } from './app.module'
 import { ValidationPipe } from '@nestjs/common'
-import { SwaggerUIBundle, SwaggerUIStandalonePreset } from 'swagger-ui-dist'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -18,7 +17,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config, {
     ignoreGlobalPrefix: true
   })
-  SwaggerModule.setup('api/docs', app, document)
+  SwaggerModule.setup('/swagger', app, document)
 
   await app.listen(8080)
 }
