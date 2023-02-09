@@ -15,7 +15,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
   const config = new DocumentBuilder().build()
-  const document = SwaggerModule.createDocument(app, config)
+  const document = SwaggerModule.createDocument(app, config, {
+    ignoreGlobalPrefix: true
+  })
   SwaggerModule.setup('api/docs', app, document, {
     customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     url: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.js'
