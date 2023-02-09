@@ -18,9 +18,10 @@ async function bootstrap() {
     ignoreGlobalPrefix: true
   })
   SwaggerModule.setup('/swagger', app, document, {
-    customCssUrl: './docs/swagger-ui.css',
-    customJs: './docs/swagger-ui-bundle.js',
-    customfavIcon: './docs/favicon-16x16.png'
+    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+    customJs: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
+    customfavIcon: '../swagger-static/favicon-16x16.png',
+    swaggerUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.js'
   })
 
   await app.listen(8080)
