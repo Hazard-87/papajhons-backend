@@ -4,26 +4,30 @@ import { ApiProperty } from '@nestjs/swagger'
 
 @Entity('pizzaSize')
 export class PizzaSizeEntity {
-  @PrimaryGeneratedColumn()
   @ApiProperty()
+  @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
   @ApiProperty()
+  @Column()
   type: string
 
-  @Column()
   @ApiProperty()
+  @Column()
   size: number
 
-  @Column()
   @ApiProperty()
+  @Column({ nullable: true })
+  unit: string
+
+  @ApiProperty()
+  @Column()
   isBorder: boolean
 
+  @ApiProperty({ type: [Number] })
   @ManyToMany(() => PizzaEntity, (pizza) => pizza.types, {
     cascade: true
   })
   @JoinTable()
-  @ApiProperty({ type: [Number] })
   pizzaIds: PizzaEntity[]
 }

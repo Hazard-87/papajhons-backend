@@ -22,8 +22,5 @@ export class UpdatePizzaDto extends PartialType(CreatePizzaDto) {
   imageId: number
 
   @ApiProperty()
-  unit: string
-
-  @ApiProperty()
   price: number
 }

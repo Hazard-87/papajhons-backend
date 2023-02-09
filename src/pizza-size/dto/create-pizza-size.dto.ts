@@ -11,6 +11,9 @@ export class CreatePizzaSizeDto {
   size: number
 
   @ApiProperty()
+  unit: string
+
+  @ApiProperty()
   isBorder: boolean
 }
 

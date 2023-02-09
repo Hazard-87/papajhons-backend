@@ -36,10 +36,6 @@ export class PizzaEntity {
 
   @Column()
   @ApiProperty()
-  unit: string
-
-  @Column()
-  @ApiProperty()
   price: number
 
   @ManyToMany(() => PizzaSizeEntity, (size) => size.pizzaIds)
