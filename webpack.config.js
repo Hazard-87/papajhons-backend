@@ -1,3 +1,5 @@
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+
 module.exports = {
   node: {
     __dirname: false
