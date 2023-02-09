@@ -14,9 +14,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
   const config = new DocumentBuilder().build()
-  const document = SwaggerModule.createDocument(app, config, {
-    ignoreGlobalPrefix: true
-  })
+  const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('/swagger', app, document)
 
   await app.listen(8080)

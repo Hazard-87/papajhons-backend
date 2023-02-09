@@ -38,12 +38,11 @@ export class QueryArg {
 
   @ApiProperty({
     required: false,
-    default: 10,
     oneOf: [{ type: 'number' }, { type: 'all' }]
   })
   limit: number
 
-  @ApiProperty({ required: false, default: 0 })
+  @ApiProperty({ required: false })
   offset: number
 }
 
