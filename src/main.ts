@@ -18,10 +18,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config, {
     ignoreGlobalPrefix: true
   })
-  SwaggerModule.setup('api/docs', app, document, {
-    customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
-    url: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.js'
-  })
+  SwaggerModule.setup('api/docs', app, document)
 
   await app.listen(8080)
 }
