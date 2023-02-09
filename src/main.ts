@@ -20,7 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('/swagger', app, document, {
     customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     customJs: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
-    customfavIcon: '../swagger-static/favicon-16x16.png',
+    customfavIcon: '../swagger/favicon-16x16.png',
     swaggerUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.js'
   })
 

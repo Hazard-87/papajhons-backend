@@ -12,9 +12,15 @@ import { PizzaSizeEntity } from './pizza-size/entities/pizza-size.entity'
 import { ProductEntity } from './product/entities/product.entity'
 import { ImageModule } from './image/image.module'
 import { ImageEntity } from './image/entities/image.entity'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { join } from 'path'
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'swagger-static'),
+      serveRoot: process.env.NODE_ENV === 'development' ? '/' : '/swagger'
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'ep-icy-sun-981326.eu-central-1.aws.neon.tech',
