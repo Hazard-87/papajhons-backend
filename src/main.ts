@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-  app.setGlobalPrefix('/api')
+  // app.setGlobalPrefix('/api')
 
   app.enableCors({
     credentials: true,
@@ -15,7 +15,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder().build()
   const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api/docs', app, document, {
+  SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
       customJs: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.0.0/swagger-ui-bundle.js'
     }
