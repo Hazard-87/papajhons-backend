@@ -1,11 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common'
 import { ImageService } from './image.service'
-import { CreateImageDto } from './dto/create-image.dto'
+import { CreateImageDto, QueryArg } from './dto/create-image.dto'
 import { UpdateImageDto } from './dto/update-image.dto'
-import { ApiOkResponse } from '@nestjs/swagger'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ImageEntity } from './entities/image.entity'
 
-@Controller('image')
+@Controller('images')
+@ApiTags('images')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
@@ -18,13 +19,12 @@ export class ImageController {
     type: [ImageEntity]
   })
   @Get()
-  findAll() {
-    return this.imageService.findAll()
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.imageService.findOne(+id)
+  findByParams(@Query('id') id?: string | string[], @Query() query?: QueryArg) {
+    if (id) {
+      return this.imageService.findByIds(id)
+    } else {
+      return this.imageService.findAll(query)
+    }
   }
 
   @Patch(':id')

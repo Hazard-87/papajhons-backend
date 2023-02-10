@@ -1,10 +1,15 @@
-import { Type } from 'class-transformer'
-import { IsArray, IsNumber, IsOptional } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
-export class CreateCategoryDto {
+@Entity('pizzaType')
+export class PizzaTypeEntity {
   @ApiProperty()
-  name: string
+  @PrimaryGeneratedColumn()
+  id: number
+
+  @ApiProperty()
+  @Column()
+  type: string
 }
 
 export class QueryArg {
@@ -19,12 +24,4 @@ export class QueryArg {
 
   @ApiProperty({ required: false })
   offset: number
-}
-
-export class BasicFiltersDTO {
-  @IsArray()
-  @IsOptional()
-  @IsNumber({}, { each: true })
-  @Type(() => Number)
-  id?: Array<number>
 }

@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToOne } from 'typeorm'
 import { PizzaEntity } from '../../pizza/entities/pizza.entity'
 import { ApiProperty } from '@nestjs/swagger'
+import { PizzaTypeEntity } from '../../pizza-type/entities/pizza-type.entity'
 
 @Entity('pizzaSize')
 export class PizzaSizeEntity {
@@ -9,8 +10,8 @@ export class PizzaSizeEntity {
   id: number
 
   @ApiProperty()
-  @Column()
-  type: string
+  @Column({ nullable: true })
+  typeId: number
 
   @ApiProperty()
   @Column()

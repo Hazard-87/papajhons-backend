@@ -26,7 +26,7 @@ export class PizzaService {
 
     const qb = this.repository
       .createQueryBuilder('pizza')
-      .leftJoinAndSelect('pizza.types', 'pizzaSizes')
+      .leftJoinAndSelect('pizza.types', 'pizzaSize')
       .leftJoinAndSelect('pizza.images', 'image')
       .where(':id <@ (pizza.categoryIDs)', { id: categoryIDs })
       .orderBy('pizza.id', query.order || 'ASC')

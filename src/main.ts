@@ -13,7 +13,10 @@ async function bootstrap() {
   })
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
-  const config = new DocumentBuilder().build()
+  const config = new DocumentBuilder()
+    .setTitle('PapaJohns')
+    .setDescription('API for PapaJohns-backend')
+    .build()
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('/swagger', app, document)
 

@@ -2,8 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { ProductService } from './product.service'
 import { CreateProductDto, QueryArg } from './dto/create-product.dto'
 import { UpdateProductDto } from './dto/update-product.dto'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ProductEntity } from './entities/product.entity'
 
 @Controller('products')
+@ApiTags('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
@@ -12,6 +15,9 @@ export class ProductController {
     return this.productService.create(createProductDto)
   }
 
+  @ApiOkResponse({
+    type: [ProductEntity]
+  })
   @Get()
   findByParams(@Query('id') id?: string | string[], @Query() query?: QueryArg) {
     if (id) {

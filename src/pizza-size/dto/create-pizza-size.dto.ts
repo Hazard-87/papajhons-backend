@@ -5,7 +5,7 @@ export class CreatePizzaSizeDto {
   pizzaID: number
 
   @ApiProperty()
-  type: string
+  typeId: number
 
   @ApiProperty()
   size: number

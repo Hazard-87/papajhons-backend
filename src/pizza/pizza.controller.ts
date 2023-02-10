@@ -5,8 +5,8 @@ import { UpdatePizzaDto } from './dto/update-pizza.dto'
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { PizzaEntity } from './entities/pizza.entity'
 
-@Controller('pizza')
-@ApiTags('pizza')
+@Controller('pizzas')
+@ApiTags('pizzas')
 export class PizzaController {
   constructor(private readonly pizzaService: PizzaService) {}
 

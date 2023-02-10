@@ -6,13 +6,15 @@ import { PizzaModule } from './pizza/pizza.module'
 import { PizzaEntity } from './pizza/entities/pizza.entity'
 import { CategoryModule } from './category/category.module'
 import { CategoryEntity } from './category/entities/category.entity'
-import { ProductModule } from './product/product.module'
 import { PizzaSizeModule } from './pizza-size/pizza-size.module'
 import { PizzaSizeEntity } from './pizza-size/entities/pizza-size.entity'
+import { ProductModule } from './product/product.module'
 import { ProductEntity } from './product/entities/product.entity'
 import { ImageModule } from './image/image.module'
 import { ImageEntity } from './image/entities/image.entity'
 import { ServeStaticModule } from '@nestjs/serve-static'
+import { PizzaTypeModule } from './pizza-type/pizza-type.module'
+import { PizzaTypeEntity } from './pizza-type/entities/pizza-type.entity'
 import { join } from 'path'
 
 @Module({
@@ -28,7 +30,14 @@ import { join } from 'path'
       username: 'Hazard-87',
       password: 'bE4KCHFePSr3',
       database: 'neondb',
-      entities: [PizzaEntity, CategoryEntity, PizzaSizeEntity, ProductEntity, ImageEntity],
+      entities: [
+        PizzaEntity,
+        CategoryEntity,
+        PizzaSizeEntity,
+        ProductEntity,
+        ImageEntity,
+        PizzaTypeEntity
+      ],
       ssl: true,
       synchronize: true
     }),
@@ -36,7 +45,8 @@ import { join } from 'path'
     CategoryModule,
     ProductModule,
     PizzaSizeModule,
-    ImageModule
+    ImageModule,
+    PizzaTypeModule
   ],
   controllers: [AppController],
   providers: [AppService]

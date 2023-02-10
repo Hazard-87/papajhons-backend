@@ -2,8 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { CategoryService } from './category.service'
 import { CreateCategoryDto, QueryArg } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { CategoryEntity } from './entities/category.entity'
 
 @Controller('categories')
+@ApiTags('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
@@ -12,6 +15,9 @@ export class CategoryController {
     return this.categoryService.create(createCategoryDto)
   }
 
+  @ApiOkResponse({
+    type: [CategoryEntity]
+  })
   @Get()
   findByParams(@Query('id') id?: string | string[], @Query() query?: QueryArg) {
     if (id) {

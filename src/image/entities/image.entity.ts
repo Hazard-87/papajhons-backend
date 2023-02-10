@@ -4,23 +4,20 @@ import { ApiProperty } from '@nestjs/swagger'
 
 @Entity('image')
 export class ImageEntity {
-  @PrimaryGeneratedColumn()
   @ApiProperty()
+  @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
   @ApiProperty()
+  @Column()
   typeId: number
 
-  @Column({
-    nullable: true,
-    default: null
-  })
   @ApiProperty()
+  @Column()
   url: string
 
+  @ApiProperty({ type: [Number] })
   @ManyToOne(() => PizzaEntity, (pizza) => pizza.images)
   @JoinColumn()
-  @ApiProperty({ type: [Number] })
   pizza: PizzaEntity
 }
