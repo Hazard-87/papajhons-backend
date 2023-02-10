@@ -15,6 +15,12 @@ import { ImageEntity } from './image/entities/image.entity'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { PizzaTypeModule } from './pizza-type/pizza-type.module'
 import { PizzaTypeEntity } from './pizza-type/entities/pizza-type.entity'
+import { SnacksModule } from './snacks/snacks.module'
+import { SnackEntity } from './snacks/entities/snack.entity'
+import { SnackImagesModule } from './snack-images/snack-images.module'
+import { SnackImageEntity } from './snack-images/entities/snack-image.entity'
+import { SnackSizesModule } from './snack-sizes/snack-sizes.module'
+import { SnackSizeEntity } from './snack-sizes/entities/snack-size.entity'
 import { join } from 'path'
 
 @Module({
@@ -36,7 +42,10 @@ import { join } from 'path'
         PizzaSizeEntity,
         ProductEntity,
         ImageEntity,
-        PizzaTypeEntity
+        PizzaTypeEntity,
+        SnackEntity,
+        SnackSizeEntity,
+        SnackImageEntity
       ],
       ssl: true,
       synchronize: true
@@ -46,7 +55,10 @@ import { join } from 'path'
     ProductModule,
     PizzaSizeModule,
     ImageModule,
-    PizzaTypeModule
+    PizzaTypeModule,
+    SnacksModule,
+    SnackSizesModule,
+    SnackImagesModule
   ],
   controllers: [AppController],
   providers: [AppService]
