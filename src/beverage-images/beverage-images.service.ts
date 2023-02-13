@@ -1,49 +1,45 @@
 import { Injectable } from '@nestjs/common'
+import { CreateBeverageImageDto } from './dto/create-beverage-image.dto'
+import { UpdateBeverageImageDto } from './dto/update-beverage-image.dto'
 import { InjectRepository } from '@nestjs/typeorm'
-import { CreatePizzaDto } from './dto/create-pizza.dto'
-import { UpdatePizzaDto } from './dto/update-pizza.dto'
-import { PizzaEntity } from './entities/pizza.entity'
 import { Brackets, Repository } from 'typeorm'
+import { BeverageImageEntity } from './entities/beverage-image.entity'
 
 @Injectable()
-export class PizzaService {
+export class BeverageImagesService {
   constructor(
-    @InjectRepository(PizzaEntity)
-    private repository: Repository<PizzaEntity>
+    @InjectRepository(BeverageImageEntity)
+    private repository: Repository<BeverageImageEntity>
   ) {}
 
-  create(dto: CreatePizzaDto) {
+  create(dto: CreateBeverageImageDto) {
     return this.repository.save(dto)
   }
 
   findByIds(id) {
-    return this.repository.findByIds(id, {
-      relations: ['types', 'images']
-    })
+    return this.repository.findByIds(id)
   }
 
   async findAll(query) {
-    const limit = 10
-    const categoryIDs = query.categoryID ? [...query.categoryID] : []
+    const limit = query.limit || 10
+
+    if (query.snackId) {
+      query.snack = query.snackId
+    }
 
     const qb = this.repository
-      .createQueryBuilder('pizza')
-      .leftJoinAndSelect('pizza.types', 'pizzaSize')
-      .leftJoinAndSelect('pizza.images', 'image')
-      .where(':id <@ (pizza.categoryIDs)', { id: categoryIDs })
-      .orderBy('pizza.id', query.order || 'ASC')
+      .createQueryBuilder('beverageImage')
+      .orderBy('beverageImage.id', query.order || 'ASC')
 
-    if (!query.limit) {
-      qb.take(limit)
-    } else if (query.limit !== 'all') {
-      qb.take(+query.limit || limit)
+    if (!isNaN(+limit)) {
+      qb.take(+limit)
     }
     qb.skip(+query.offset || 0)
 
     delete query.limit
     delete query.offset
     delete query.order
-    delete query.categoryID
+    delete query.snackId
 
     const items = []
     const params = []
@@ -58,7 +54,17 @@ export class PizzaService {
       }
     })
 
-    qb.andWhere(params).andWhere(
+    qb.where(
+      new Brackets((qb) => {
+        params.forEach((item, idx) => {
+          if (idx === 0) {
+            qb.where(item)
+          } else {
+            qb.andWhere(item)
+          }
+        })
+      })
+    ).andWhere(
       new Brackets((qb) => {
         items.forEach((item, idx) => {
           if (idx === 0) {
@@ -78,7 +84,7 @@ export class PizzaService {
     }
   }
 
-  update(id: number, dto: UpdatePizzaDto) {
+  update(id: number, dto: UpdateBeverageImageDto) {
     return this.repository.update(id, dto)
   }
 

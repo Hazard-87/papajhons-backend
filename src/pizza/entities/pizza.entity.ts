@@ -5,44 +5,44 @@ import { ApiProperty } from '@nestjs/swagger'
 
 @Entity('pizza')
 export class PizzaEntity {
-  @PrimaryGeneratedColumn()
   @ApiProperty()
+  @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
   @ApiProperty()
+  @Column()
   name: string
 
-  @Column()
   @ApiProperty()
+  @Column()
   description: string
 
-  @Column()
   @ApiProperty()
+  @Column()
   productID: number
 
-  @Column()
   @ApiProperty()
+  @Column()
   createdAt: Date
 
+  @ApiProperty({ type: [Number] })
   @Column({
     type: 'integer',
     array: true,
     default: [],
     nullable: false
   })
-  @ApiProperty({ type: [Number] })
   public categoryIDs: number[]
 
-  @Column()
   @ApiProperty()
+  @Column()
   price: number
 
-  @ManyToMany(() => PizzaSizeEntity, (size) => size.pizzaIds)
   @ApiProperty({ type: [PizzaSizeEntity] })
+  @ManyToMany(() => PizzaSizeEntity, (size) => size.pizzaIds)
   types: PizzaSizeEntity[]
 
-  @OneToMany(() => ImageEntity, (image) => image.pizza)
   @ApiProperty({ type: [ImageEntity] })
+  @OneToMany(() => ImageEntity, (image) => image.pizza)
   images: ImageEntity[]
 }

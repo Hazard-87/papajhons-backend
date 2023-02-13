@@ -1,49 +1,34 @@
 import { Injectable } from '@nestjs/common'
+import { CreateBeverageSizeDto } from './dto/create-beverage-size.dto'
+import { UpdateBeverageSizeDto } from './dto/update-beverage-size.dto'
 import { InjectRepository } from '@nestjs/typeorm'
-import { CreatePizzaDto } from './dto/create-pizza.dto'
-import { UpdatePizzaDto } from './dto/update-pizza.dto'
-import { PizzaEntity } from './entities/pizza.entity'
 import { Brackets, Repository } from 'typeorm'
+import { BeverageSizeEntity } from './entities/beverage-size.entity'
 
 @Injectable()
-export class PizzaService {
+export class BeverageSizesService {
   constructor(
-    @InjectRepository(PizzaEntity)
-    private repository: Repository<PizzaEntity>
+    @InjectRepository(BeverageSizeEntity)
+    private repository: Repository<BeverageSizeEntity>
   ) {}
 
-  create(dto: CreatePizzaDto) {
+  create(dto: CreateBeverageSizeDto) {
     return this.repository.save(dto)
   }
 
   findByIds(id) {
-    return this.repository.findByIds(id, {
-      relations: ['types', 'images']
-    })
+    return this.repository.findByIds(id)
   }
 
   async findAll(query) {
-    const limit = 10
-    const categoryIDs = query.categoryID ? [...query.categoryID] : []
-
-    const qb = this.repository
-      .createQueryBuilder('pizza')
-      .leftJoinAndSelect('pizza.types', 'pizzaSize')
-      .leftJoinAndSelect('pizza.images', 'image')
-      .where(':id <@ (pizza.categoryIDs)', { id: categoryIDs })
-      .orderBy('pizza.id', query.order || 'ASC')
-
-    if (!query.limit) {
-      qb.take(limit)
-    } else if (query.limit !== 'all') {
-      qb.take(+query.limit || limit)
-    }
-    qb.skip(+query.offset || 0)
-
+    const qb = this.repository.createQueryBuilder('beverageSize')
+    qb.orderBy('id', 'ASC')
+    qb.limit(+query.limit || 10)
+    qb.offset(+query.offset || 0)
+    qb.orderBy('id', query.order || 'ASC')
     delete query.limit
     delete query.offset
     delete query.order
-    delete query.categoryID
 
     const items = []
     const params = []
@@ -58,7 +43,7 @@ export class PizzaService {
       }
     })
 
-    qb.andWhere(params).andWhere(
+    qb.where(params).andWhere(
       new Brackets((qb) => {
         items.forEach((item, idx) => {
           if (idx === 0) {
@@ -78,7 +63,7 @@ export class PizzaService {
     }
   }
 
-  update(id: number, dto: UpdatePizzaDto) {
+  update(id: number, dto: UpdateBeverageSizeDto) {
     return this.repository.update(id, dto)
   }
 

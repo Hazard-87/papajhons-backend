@@ -17,7 +17,9 @@ export class SnacksService {
   }
 
   findByIds(id) {
-    return this.repository.findByIds(id)
+    return this.repository.findByIds(id, {
+      relations: ['sizes', 'images']
+    })
   }
 
   async findAll(query) {

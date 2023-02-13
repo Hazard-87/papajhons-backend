@@ -1,3 +1,4 @@
+import { join } from 'path'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -21,7 +22,12 @@ import { SnackImagesModule } from './snack-images/snack-images.module'
 import { SnackImageEntity } from './snack-images/entities/snack-image.entity'
 import { SnackSizesModule } from './snack-sizes/snack-sizes.module'
 import { SnackSizeEntity } from './snack-sizes/entities/snack-size.entity'
-import { join } from 'path'
+import { BeveragesModule } from './beverages/beverages.module'
+import { BeverageEntity } from './beverages/entities/beverage.entity'
+import { BeverageSizesModule } from './beverage-sizes/beverage-sizes.module'
+import { BeverageSizeEntity } from './beverage-sizes/entities/beverage-size.entity'
+import { BeverageImagesModule } from './beverage-images/beverage-images.module'
+import { BeverageImageEntity } from './beverage-images/entities/beverage-image.entity'
 
 @Module({
   imports: [
@@ -45,7 +51,10 @@ import { join } from 'path'
         PizzaTypeEntity,
         SnackEntity,
         SnackSizeEntity,
-        SnackImageEntity
+        SnackImageEntity,
+        BeverageEntity,
+        BeverageSizeEntity,
+        BeverageImageEntity
       ],
       ssl: true,
       synchronize: true
@@ -58,7 +67,10 @@ import { join } from 'path'
     PizzaTypeModule,
     SnacksModule,
     SnackSizesModule,
-    SnackImagesModule
+    SnackImagesModule,
+    BeveragesModule,
+    BeverageSizesModule,
+    BeverageImagesModule
   ],
   controllers: [AppController],
   providers: [AppService]

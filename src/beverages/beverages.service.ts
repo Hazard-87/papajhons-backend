@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common'
+import { CreateBeverageDto } from './dto/create-beverage.dto'
+import { UpdateBeverageDto } from './dto/update-beverage.dto'
 import { InjectRepository } from '@nestjs/typeorm'
-import { CreatePizzaDto } from './dto/create-pizza.dto'
-import { UpdatePizzaDto } from './dto/update-pizza.dto'
-import { PizzaEntity } from './entities/pizza.entity'
 import { Brackets, Repository } from 'typeorm'
+import { BeverageEntity } from './entities/beverage.entity'
 
 @Injectable()
-export class PizzaService {
+export class BeveragesService {
   constructor(
-    @InjectRepository(PizzaEntity)
-    private repository: Repository<PizzaEntity>
+    @InjectRepository(BeverageEntity)
+    private repository: Repository<BeverageEntity>
   ) {}
 
-  create(dto: CreatePizzaDto) {
+  create(dto: CreateBeverageDto) {
     return this.repository.save(dto)
   }
 
   findByIds(id) {
     return this.repository.findByIds(id, {
-      relations: ['types', 'images']
+      relations: ['sizes', 'images']
     })
   }
 
@@ -27,11 +27,11 @@ export class PizzaService {
     const categoryIDs = query.categoryID ? [...query.categoryID] : []
 
     const qb = this.repository
-      .createQueryBuilder('pizza')
-      .leftJoinAndSelect('pizza.types', 'pizzaSize')
-      .leftJoinAndSelect('pizza.images', 'image')
-      .where(':id <@ (pizza.categoryIDs)', { id: categoryIDs })
-      .orderBy('pizza.id', query.order || 'ASC')
+      .createQueryBuilder('beverage')
+      .leftJoinAndSelect('beverage.sizes', 'beverageSize')
+      .leftJoinAndSelect('beverage.images', 'beverageImage')
+      .where(':id <@ (beverage.categoryIDs)', { id: categoryIDs })
+      .orderBy('beverage.id', query.order || 'ASC')
 
     if (!query.limit) {
       qb.take(limit)
@@ -78,7 +78,7 @@ export class PizzaService {
     }
   }
 
-  update(id: number, dto: UpdatePizzaDto) {
+  update(id: number, dto: UpdateBeverageDto) {
     return this.repository.update(id, dto)
   }
 
