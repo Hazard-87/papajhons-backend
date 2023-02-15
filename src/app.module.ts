@@ -28,6 +28,18 @@ import { BeverageSizesModule } from './beverage-sizes/beverage-sizes.module'
 import { BeverageSizeEntity } from './beverage-sizes/entities/beverage-size.entity'
 import { BeverageImagesModule } from './beverage-images/beverage-images.module'
 import { BeverageImageEntity } from './beverage-images/entities/beverage-image.entity'
+import { SaucesModule } from './sauces/sauces.module'
+import { SauceEntity } from './sauces/entities/sauce.entity'
+import { SauceImagesModule } from './sauce-images/sauce-images.module'
+import { SauceImageEntity } from './sauce-images/entities/sauce-image.entity'
+import { SauceSizesModule } from './sauce-sizes/sauce-sizes.module'
+import { SauceSizeEntity } from './sauce-sizes/entities/sauce-size.entity'
+import { DessertsModule } from './desserts/desserts.module'
+import { DessertEntity } from './desserts/entities/dessert.entity'
+import { DessertSizesModule } from './dessert-sizes/dessert-sizes.module'
+import { DessertSizeEntity } from './dessert-sizes/entities/dessert-size.entity'
+import { DessertImagesModule } from './dessert-images/dessert-images.module'
+import { DessertImageEntity } from './dessert-images/entities/dessert-image.entity'
 
 @Module({
   imports: [
@@ -54,7 +66,13 @@ import { BeverageImageEntity } from './beverage-images/entities/beverage-image.e
         SnackImageEntity,
         BeverageEntity,
         BeverageSizeEntity,
-        BeverageImageEntity
+        BeverageImageEntity,
+        SauceEntity,
+        SauceSizeEntity,
+        SauceImageEntity,
+        DessertEntity,
+        DessertSizeEntity,
+        DessertImageEntity
       ],
       ssl: true,
       synchronize: true
@@ -70,7 +88,13 @@ import { BeverageImageEntity } from './beverage-images/entities/beverage-image.e
     SnackImagesModule,
     BeveragesModule,
     BeverageSizesModule,
-    BeverageImagesModule
+    BeverageImagesModule,
+    SaucesModule,
+    SauceImagesModule,
+    SauceSizesModule,
+    DessertsModule,
+    DessertSizesModule,
+    DessertImagesModule
   ],
   controllers: [AppController],
   providers: [AppService]

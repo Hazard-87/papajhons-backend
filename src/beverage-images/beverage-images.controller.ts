@@ -3,7 +3,7 @@ import { BeverageImagesService } from './beverage-images.service'
 import { CreateBeverageImageDto, QueryArg } from './dto/create-beverage-image.dto'
 import { UpdateBeverageImageDto } from './dto/update-beverage-image.dto'
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
-import { SnackImageEntity } from '../snack-images/entities/snack-image.entity'
+import { BeverageImageEntity } from './entities/beverage-image.entity'
 
 @Controller('beverageImages')
 @ApiTags('beverageImages')
@@ -16,7 +16,7 @@ export class BeverageImagesController {
   }
 
   @ApiOkResponse({
-    type: [SnackImageEntity]
+    type: [BeverageImageEntity]
   })
   @Get()
   findByParams(@Query('id') id?: string | string[], @Query() query?: QueryArg) {
