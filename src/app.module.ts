@@ -40,6 +40,10 @@ import { DessertSizesModule } from './dessert-sizes/dessert-sizes.module'
 import { DessertSizeEntity } from './dessert-sizes/entities/dessert-size.entity'
 import { DessertImagesModule } from './dessert-images/dessert-images.module'
 import { DessertImageEntity } from './dessert-images/entities/dessert-image.entity'
+import { HottersModule } from './hotters/hotters.module'
+import { HotterEntity } from './hotters/entities/hotter.entity'
+import { HotterImagesModule } from './hotter-images/hotter-images.module'
+import { HotterImageEntity } from './hotter-images/entities/hotter-image.entity'
 
 @Module({
   imports: [
@@ -72,7 +76,9 @@ import { DessertImageEntity } from './dessert-images/entities/dessert-image.enti
         SauceImageEntity,
         DessertEntity,
         DessertSizeEntity,
-        DessertImageEntity
+        DessertImageEntity,
+        HotterEntity,
+        HotterImageEntity
       ],
       ssl: true,
       synchronize: true
@@ -94,7 +100,9 @@ import { DessertImageEntity } from './dessert-images/entities/dessert-image.enti
     SauceSizesModule,
     DessertsModule,
     DessertSizesModule,
-    DessertImagesModule
+    DessertImagesModule,
+    HottersModule,
+    HotterImagesModule
   ],
   controllers: [AppController],
   providers: [AppService]
