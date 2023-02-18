@@ -44,6 +44,15 @@ import { HottersModule } from './hotters/hotters.module'
 import { HotterEntity } from './hotters/entities/hotter.entity'
 import { HotterImagesModule } from './hotter-images/hotter-images.module'
 import { HotterImageEntity } from './hotter-images/entities/hotter-image.entity'
+import { CombosModule } from './combos/combos.module'
+import { ComboEntity } from './combos/entities/combo.entity'
+import { ComboImagesModule } from './combo-images/combo-images.module'
+import { ComboImageEntity } from './combo-images/entities/combo-image.entity'
+import { JoysModule } from './joys/joys.module'
+import { JoyEntity } from './joys/entities/joy.entity'
+import { JoyImagesModule } from './joy-images/joy-images.module'
+import { JoyImageEntity } from './joy-images/entities/joy-image.entity'
+import { CartsModule } from './carts/carts.module'
 
 @Module({
   imports: [
@@ -78,7 +87,11 @@ import { HotterImageEntity } from './hotter-images/entities/hotter-image.entity'
         DessertSizeEntity,
         DessertImageEntity,
         HotterEntity,
-        HotterImageEntity
+        HotterImageEntity,
+        ComboEntity,
+        ComboImageEntity,
+        JoyEntity,
+        JoyImageEntity
       ],
       ssl: true,
       synchronize: true
@@ -102,7 +115,12 @@ import { HotterImageEntity } from './hotter-images/entities/hotter-image.entity'
     DessertSizesModule,
     DessertImagesModule,
     HottersModule,
-    HotterImagesModule
+    HotterImagesModule,
+    CombosModule,
+    ComboImagesModule,
+    JoysModule,
+    JoyImagesModule,
+    CartsModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common'
-import { CreateHotterImageDto } from './dto/create-hotter-image.dto'
-import { UpdateHotterImageDto } from './dto/update-hotter-image.dto'
+import { CreateJoyImageDto } from './dto/create-joy-image.dto'
+import { UpdateJoyImageDto } from './dto/update-joy-image.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Brackets, Repository } from 'typeorm'
-import { HotterImageEntity } from './entities/hotter-image.entity'
+import { JoyImageEntity } from './entities/joy-image.entity'
 
 @Injectable()
-export class HotterImagesService {
+export class JoyImagesService {
   constructor(
-    @InjectRepository(HotterImageEntity)
-    private repository: Repository<HotterImageEntity>
+    @InjectRepository(JoyImageEntity)
+    private repository: Repository<JoyImageEntity>
   ) {}
 
-  create(dto: CreateHotterImageDto) {
+  create(dto: CreateJoyImageDto) {
     return this.repository.save(dto)
   }
 
@@ -23,13 +23,13 @@ export class HotterImagesService {
   async findAll(query) {
     const limit = query.limit || 10
 
-    if (query.hotterId) {
-      query.hotter = query.hotterId
+    if (query.joyId) {
+      query.joy = query.joyId
     }
 
     const qb = this.repository
-      .createQueryBuilder('hotterImage')
-      .orderBy('hotterImage.id', query.order || 'ASC')
+      .createQueryBuilder('joyImage')
+      .orderBy('joyImage.id', query.order || 'ASC')
 
     if (!isNaN(+limit)) {
       qb.take(+limit)
@@ -39,7 +39,7 @@ export class HotterImagesService {
     delete query.limit
     delete query.offset
     delete query.order
-    delete query.hotterId
+    delete query.joyId
 
     const items = []
     const params = []
@@ -84,7 +84,7 @@ export class HotterImagesService {
     }
   }
 
-  update(id: number, dto: UpdateHotterImageDto) {
+  update(id: number, dto: UpdateJoyImageDto) {
     return this.repository.update(id, dto)
   }
 

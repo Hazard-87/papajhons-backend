@@ -1,45 +1,49 @@
 import { Injectable } from '@nestjs/common'
-import { CreateHotterImageDto } from './dto/create-hotter-image.dto'
-import { UpdateHotterImageDto } from './dto/update-hotter-image.dto'
+import { CreateComboDto } from './dto/create-combo.dto'
+import { UpdateComboDto } from './dto/update-combo.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Brackets, Repository } from 'typeorm'
-import { HotterImageEntity } from './entities/hotter-image.entity'
+import { ComboEntity } from './entities/combo.entity'
 
 @Injectable()
-export class HotterImagesService {
+export class CombosService {
   constructor(
-    @InjectRepository(HotterImageEntity)
-    private repository: Repository<HotterImageEntity>
+    @InjectRepository(ComboEntity)
+    private repository: Repository<ComboEntity>
   ) {}
 
-  create(dto: CreateHotterImageDto) {
+  create(dto: CreateComboDto) {
     return this.repository.save(dto)
   }
 
   findByIds(id) {
-    return this.repository.findByIds(id)
+    return this.repository.findByIds(id, {
+      relations: ['types', 'images']
+    })
   }
 
   async findAll(query) {
-    const limit = query.limit || 10
-
-    if (query.hotterId) {
-      query.hotter = query.hotterId
-    }
+    const limit = 10
+    const categoryIDs = query.categoryID ? [...query.categoryID] : []
 
     const qb = this.repository
-      .createQueryBuilder('hotterImage')
-      .orderBy('hotterImage.id', query.order || 'ASC')
+      .createQueryBuilder('combo')
+      .leftJoinAndSelect('combo.types', 'pizzaSize')
+      .leftJoinAndSelect('combo.images', 'comboImage')
+      .where(':id <@ (combo.categoryIDs)', { id: categoryIDs })
+      .orderBy('combo.id', query.order || 'ASC')
 
-    if (!isNaN(+limit)) {
-      qb.take(+limit)
+    if (!query.limit) {
+      qb.take(limit)
+    } else if (query.limit !== 'all') {
+      qb.take(+query.limit || limit)
     }
     qb.skip(+query.offset || 0)
 
     delete query.limit
     delete query.offset
     delete query.order
-    delete query.hotterId
+    delete query.categoryID
 
     const items = []
     const params = []
@@ -54,17 +58,7 @@ export class HotterImagesService {
       }
     })
 
-    qb.where(
-      new Brackets((qb) => {
-        params.forEach((item, idx) => {
-          if (idx === 0) {
-            qb.where(item)
-          } else {
-            qb.andWhere(item)
-          }
-        })
-      })
-    ).andWhere(
+    qb.andWhere(params).andWhere(
       new Brackets((qb) => {
         items.forEach((item, idx) => {
           if (idx === 0) {
@@ -84,7 +78,7 @@ export class HotterImagesService {
     }
   }
 
-  update(id: number, dto: UpdateHotterImageDto) {
+  update(id: number, dto: UpdateComboDto) {
     return this.repository.update(id, dto)
   }
 

@@ -1,45 +1,45 @@
 import { Injectable } from '@nestjs/common'
-import { CreateHotterImageDto } from './dto/create-hotter-image.dto'
-import { UpdateHotterImageDto } from './dto/update-hotter-image.dto'
+import { CreateJoyDto } from './dto/create-joy.dto'
+import { UpdateJoyDto } from './dto/update-joy.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Brackets, Repository } from 'typeorm'
-import { HotterImageEntity } from './entities/hotter-image.entity'
+import { JoyEntity } from './entities/joy.entity'
 
 @Injectable()
-export class HotterImagesService {
+export class JoysService {
   constructor(
-    @InjectRepository(HotterImageEntity)
-    private repository: Repository<HotterImageEntity>
+    @InjectRepository(JoyEntity)
+    private repository: Repository<JoyEntity>
   ) {}
 
-  create(dto: CreateHotterImageDto) {
+  create(dto: CreateJoyDto) {
     return this.repository.save(dto)
   }
 
   findByIds(id) {
-    return this.repository.findByIds(id)
+    return this.repository.findByIds(id, {
+      relations: ['images']
+    })
   }
 
   async findAll(query) {
-    const limit = query.limit || 10
-
-    if (query.hotterId) {
-      query.hotter = query.hotterId
-    }
+    const limit = 10
 
     const qb = this.repository
-      .createQueryBuilder('hotterImage')
-      .orderBy('hotterImage.id', query.order || 'ASC')
+      .createQueryBuilder('joy')
+      .leftJoinAndSelect('joy.images', 'joyImage')
+      .orderBy('joy.id', query.order || 'ASC')
 
-    if (!isNaN(+limit)) {
-      qb.take(+limit)
+    if (!query.limit) {
+      qb.take(limit)
+    } else if (query.limit !== 'all') {
+      qb.take(+query.limit || limit)
     }
     qb.skip(+query.offset || 0)
 
     delete query.limit
     delete query.offset
     delete query.order
-    delete query.hotterId
 
     const items = []
     const params = []
@@ -54,17 +54,7 @@ export class HotterImagesService {
       }
     })
 
-    qb.where(
-      new Brackets((qb) => {
-        params.forEach((item, idx) => {
-          if (idx === 0) {
-            qb.where(item)
-          } else {
-            qb.andWhere(item)
-          }
-        })
-      })
-    ).andWhere(
+    qb.andWhere(params).andWhere(
       new Brackets((qb) => {
         items.forEach((item, idx) => {
           if (idx === 0) {
@@ -84,7 +74,7 @@ export class HotterImagesService {
     }
   }
 
-  update(id: number, dto: UpdateHotterImageDto) {
+  update(id: number, dto: UpdateJoyDto) {
     return this.repository.update(id, dto)
   }
 
